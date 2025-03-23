@@ -1,0 +1,107 @@
+# Script de Configuração de Servidor
+
+Este script automatiza a configuração de um servidor com **Nginx**, **OpenSSL**, **UFW**, e **Bind9** no Debian. Ele realiza as seguintes tarefas:
+
+1. **Instalação do Nginx**: Instala ou atualiza o Nginx.
+2. **Instalação do OpenSSL**: Instala o OpenSSL para gerar um certificado SSL autoassinado.
+3. **Configuração do UFW**: Configura o firewall para permitir tráfego HTTP e HTTPS.
+4. **Instalação e configuração do Bind9**: Instala o servidor de DNS `Bind9` e garante que o serviço esteja configurado corretamente.
+5. **Criação de Certificado SSL Autoassinado**: Gera um certificado SSL autoassinado se ele não existir.
+6. **Configuração do Nginx**: Configura o Nginx para servir conteúdo via HTTP e HTTPS com o certificado SSL gerado.
+7. **Ajustes no arquivo `/etc/hosts`**: Adiciona uma entrada no arquivo `/etc/hosts` para permitir o acesso via `debian-cloud.local`.
+8. **Reinicialização de Serviços**: Reinicia os serviços necessários para aplicar as configurações.
+
+## Funcionalidades
+
+- **Nginx**: Servidor web para servir conteúdo seguro via HTTPS.
+- **OpenSSL**: Criação de certificados SSL autoassinados.
+- **UFW**: Configuração do firewall para permitir o tráfego HTTP e HTTPS.
+- **Bind9**: Configuração do servidor de DNS para o sistema, criando links simbólicos para resolver problemas de alias e inicialização do serviço.
+
+## Requisitos
+
+- Debian (versão Bullseye ou superior recomendada).
+- Permissões de sudo para instalar pacotes e alterar configurações de sistema.
+
+## Como usar
+
+1. Clone ou faça o download deste script para o seu servidor.
+2. Dê permissões de execução ao script:
+   ```bash
+   chmod +x install_server.shExecute o script com permissões de superusuário:
+
+sudo ./install_server.sh
+
+
+
+    O script irá instalar e configurar automaticamente os serviços necessários.
+
+O que o script faz
+
+    Instalação e configuração do Nginx:
+
+        Instala ou atualiza o Nginx.
+
+        Configura o Nginx para servir conteúdo via HTTP e HTTPS.
+
+        Gera um certificado SSL autoassinado para habilitar o HTTPS.
+
+        Testa e reinicia o serviço Nginx.
+
+    Instalação e configuração do OpenSSL:
+
+        Instala o OpenSSL, se necessário, e cria um certificado SSL autoassinado.
+
+    Configuração do firewall com UFW:
+
+        Configura o UFW para permitir tráfego nas portas HTTP (80) e HTTPS (443).
+
+        Habilita o UFW e aplica as regras.
+
+    Instalação do Bind9:
+
+        Instala o Bind9, caso não esteja instalado.
+
+        Cria links simbólicos para corrigir possíveis erros de alias.
+
+        Habilita e inicia o serviço Bind9.
+
+    Alterações no arquivo /etc/hosts:
+
+        Adiciona uma entrada no arquivo /etc/hosts para debian-cloud.local se ela não existir.
+
+Problemas conhecidos
+
+    Alias do bind9: Se o serviço bind9 não for encontrado corretamente, o script tenta corrigir criando um link simbólico do named.service para o bind9.service.
+
+    Dependências não atendidas: Caso o script encontre pacotes faltando durante a execução, ele tentará instalá-los automaticamente.
+
+Saída esperada
+
+Após a execução, você verá uma saída que confirma a instalação dos pacotes e serviços, e também informações sobre o status do Nginx e Bind9.
+
+Exemplo de saída:
+
+Nginx já está instalado.
+Bind9 não encontrado. Instalando...
+Certificado SSL já existe. Pulando a criação.
+Configuração do Nginx ativada.
+Link simbólico criado para o Bind9.
+Configuração do firewall aplicada.
+
+O servidor estará configurado e pronto para uso. Você pode acessar o servidor através de:
+
+    http://debian-cloud.local
+
+    https://debian-cloud.local
+
+Contribuições
+
+Se você encontrou algum problema ou deseja contribuir para melhorar este script, sinta-se à vontade para fazer um fork e enviar um pull request.
+Licença
+
+Este projeto é licenciado sob a MIT License.
+
+
+Agora você pode copiar o conteúdo acima e colar diretamente no seu arquivo `README.md` no GitHub!
+
